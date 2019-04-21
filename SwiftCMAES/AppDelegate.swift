@@ -20,9 +20,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		
 		// Solution variables.
 //		let startSolution = Vector(repeating: 0.5, count: 10)
-		let startRangeBound: Double = 2.0
+		let startRangeBound: Double = 5.0
 		let startSolution = [Double.random(in: -startRangeBound...startRangeBound), Double.random(in: -startRangeBound...startRangeBound), Double.random(in: -startRangeBound...startRangeBound)]
-		let fitness = RastriginFitnessEvaluator()
+		let fitness = AckleyFitnessEvaluator()
 		
 		// Hyperparameters.
 		let populationSize = Int(4+floor(3*log(Double(startSolution.count))))

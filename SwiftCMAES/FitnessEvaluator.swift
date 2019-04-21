@@ -43,3 +43,22 @@ struct RastriginFitnessEvaluator: FitnessEvaluator {
 		return rastrigin(invec: genome)
 	}
 }
+
+
+struct AckleyFitnessEvaluator: FitnessEvaluator {
+	typealias Genome = Vector
+	
+	func ackley(invec: Vector) -> Double {
+		let cosTerms = invec.map { cos(2.0 * Double.pi * $0) }
+		let e = 2.71828
+		return -20.0 * exp(-0.2 * sqrt(invec.squared.sum)) - exp(0.5 * cosTerms.sum) + e + 20.0
+	}
+	
+	func fitnessFor(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
+		let diff = genome.squaredMagnitude // Distance from origin is the error.
+		if diff < 0.1 {
+			solutionCallback(genome, diff)
+		}
+		return ackley(invec: genome)
+	}
+}
