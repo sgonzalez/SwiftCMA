@@ -91,7 +91,7 @@ class CMAES {
 	}
 	
 	/// Performs an evolutionary epoch.
-	func epoch<E: FitnessEvaluator>(evaluator: E, solutionCallback: (Vector, Double) -> ()) where E.Genome == Vector {
+	func epoch<E: ObjectiveEvaluator>(evaluator: E, solutionCallback: (Vector, Double) -> ()) where E.Genome == Vector {
 		// Generate offspring.
 		C.updateEigensystem(currentEval: countEval, lazyGapEvals: lazyGapEvals)
 		var candidateSolutions = [Vector]()
@@ -103,7 +103,7 @@ class CMAES {
 		
 		// Evaluate fitnesses.
 		var fitnesses = candidateSolutions.map { solution in
-			return evaluator.fitnessFor(genome: solution, solutionCallback: solutionCallback)
+			return evaluator.objective(genome: solution, solutionCallback: solutionCallback)
 		}
 		
 		// Bookkeeping

@@ -1,5 +1,5 @@
 //
-//  FitnessEvaluator.swift
+//  ObjectiveEvaluator.swift
 //  SwiftCMAES
 //
 //  Created by Santiago Gonzalez on 4/13/19.
@@ -8,16 +8,16 @@
 
 import Foundation
 
-protocol FitnessEvaluator {
+protocol ObjectiveEvaluator {
 	associatedtype Genome
-	func fitnessFor(genome: Genome, solutionCallback: (Genome, Double) -> ()) -> Double
+	func objective(genome: Genome, solutionCallback: (Genome, Double) -> ()) -> Double
 }
 
 
-struct SphereFitnessEvaluator: FitnessEvaluator {
+struct SphereObjectiveEvaluator: ObjectiveEvaluator {
 	typealias Genome = Vector
 	
-	func fitnessFor(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
+	func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
 		let diff = genome.squaredMagnitude // Distance from origin is the error.
 		if diff < 0.01 {
 			solutionCallback(genome, diff)
@@ -26,7 +26,7 @@ struct SphereFitnessEvaluator: FitnessEvaluator {
 	}
 }
 
-struct RastriginFitnessEvaluator: FitnessEvaluator {
+struct RastriginObjectiveEvaluator: ObjectiveEvaluator {
 	typealias Genome = Vector
 	
 	func rastrigin(invec: Vector) -> Double {
@@ -35,7 +35,7 @@ struct RastriginFitnessEvaluator: FitnessEvaluator {
 		return 10.0 * Double(invec.count) + summedTerm
 	}
 	
-	func fitnessFor(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
+	func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
 		let diff = genome.squaredMagnitude // Distance from origin is the error.
 		if diff < 0.1 {
 			solutionCallback(genome, diff)
@@ -45,7 +45,7 @@ struct RastriginFitnessEvaluator: FitnessEvaluator {
 }
 
 
-struct AckleyFitnessEvaluator: FitnessEvaluator {
+struct AckleyObjectiveEvaluator: ObjectiveEvaluator {
 	typealias Genome = Vector
 	
 	func ackley(invec: Vector) -> Double {
@@ -54,7 +54,7 @@ struct AckleyFitnessEvaluator: FitnessEvaluator {
 		return -20.0 * exp(-0.2 * sqrt(invec.squared.sum)) - exp(0.5 * cosTerms.sum) + e + 20.0
 	}
 	
-	func fitnessFor(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
+	func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
 		let diff = genome.squaredMagnitude // Distance from origin is the error.
 		if diff < 0.1 {
 			solutionCallback(genome, diff)

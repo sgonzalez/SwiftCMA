@@ -14,7 +14,7 @@
 		7E751E86226251EF009E5A87 /* SwiftCMAESTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E85226251EF009E5A87 /* SwiftCMAESTests.swift */; };
 		7E751E9122625203009E5A87 /* LinearAlgebra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E9022625203009E5A87 /* LinearAlgebra.swift */; };
 		7E751E932262521E009E5A87 /* DecomposingPositiveDefiniteMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E922262521E009E5A87 /* DecomposingPositiveDefiniteMatrix.swift */; };
-		7E751E9522625236009E5A87 /* FitnessEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E9422625236009E5A87 /* FitnessEvaluator.swift */; };
+		7E751E9522625236009E5A87 /* ObjectiveEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E9422625236009E5A87 /* ObjectiveEvaluator.swift */; };
 		7E751E972262524C009E5A87 /* CMAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E962262524C009E5A87 /* CMAES.swift */; };
 		7E751E9922625623009E5A87 /* EigenDecomposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E9822625623009E5A87 /* EigenDecomposition.swift */; };
 		7E751E9B22625D1A009E5A87 /* EigenDecompositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E9A22625D1A009E5A87 /* EigenDecompositionTests.swift */; };
@@ -45,7 +45,7 @@
 		7E751E87226251EF009E5A87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E751E9022625203009E5A87 /* LinearAlgebra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearAlgebra.swift; sourceTree = "<group>"; };
 		7E751E922262521E009E5A87 /* DecomposingPositiveDefiniteMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecomposingPositiveDefiniteMatrix.swift; sourceTree = "<group>"; };
-		7E751E9422625236009E5A87 /* FitnessEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessEvaluator.swift; sourceTree = "<group>"; };
+		7E751E9422625236009E5A87 /* ObjectiveEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveEvaluator.swift; sourceTree = "<group>"; };
 		7E751E962262524C009E5A87 /* CMAES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMAES.swift; sourceTree = "<group>"; };
 		7E751E9822625623009E5A87 /* EigenDecomposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EigenDecomposition.swift; sourceTree = "<group>"; };
 		7E751E9A22625D1A009E5A87 /* EigenDecompositionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EigenDecompositionTests.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 				7E751EEE226CDB7A009E5A87 /* Double+ProbabilityDistributions.swift */,
 				7E751E9822625623009E5A87 /* EigenDecomposition.swift */,
 				7E751E922262521E009E5A87 /* DecomposingPositiveDefiniteMatrix.swift */,
-				7E751E9422625236009E5A87 /* FitnessEvaluator.swift */,
+				7E751E9422625236009E5A87 /* ObjectiveEvaluator.swift */,
 				7E751E962262524C009E5A87 /* CMAES.swift */,
 			);
 			path = SwiftCMAES;
@@ -223,7 +223,7 @@
 				7E751E75226251EC009E5A87 /* ViewController.swift in Sources */,
 				7E751EEF226CDB7A009E5A87 /* Double+ProbabilityDistributions.swift in Sources */,
 				7E751E9122625203009E5A87 /* LinearAlgebra.swift in Sources */,
-				7E751E9522625236009E5A87 /* FitnessEvaluator.swift in Sources */,
+				7E751E9522625236009E5A87 /* ObjectiveEvaluator.swift in Sources */,
 				7E751E932262521E009E5A87 /* DecomposingPositiveDefiniteMatrix.swift in Sources */,
 				7E751E73226251EC009E5A87 /* AppDelegate.swift in Sources */,
 				7E751E972262524C009E5A87 /* CMAES.swift in Sources */,

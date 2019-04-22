@@ -27,7 +27,7 @@ class ViewController: NSViewController {
 			//							 Double.random(in: -5.0...5.0), Double.random(in: -5.0...5.0), Double.random(in: -5.0...5.0),
 			//							 Double.random(in: -5.0...5.0), Double.random(in: -5.0...5.0), Double.random(in: -5.0...5.0),
 			//							 Double.random(in: -5.0...5.0)]
-			let fitness = SphereFitnessEvaluator()
+			let fitness = SphereObjectiveEvaluator()
 			
 			// Hyperparameters.
 			let populationSize = Int(4+floor(3*log(Double(startSolution.count))))
