@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //		let startSolution = Vector(repeating: 0.5, count: 10)
 		let startRangeBound: Double = 5.0
 		let startSolution = [Double.random(in: -startRangeBound...startRangeBound), Double.random(in: -startRangeBound...startRangeBound), Double.random(in: -startRangeBound...startRangeBound)]
-		let fitness = AckleyObjectiveEvaluator()
+		var fitness = AckleyObjectiveEvaluator()
 		
 		// Hyperparameters.
 		let populationSize = Int(4+floor(3*log(Double(startSolution.count))))
@@ -35,7 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		var bestSolution: (Vector, Double)?
 		for i in 0..<1000 {
 			guard solution == nil else { break }
-			cmaes.epoch(evaluator: fitness) { newSolution, newFitness in
+			cmaes.epoch(evaluator: &fitness) { newSolution, newFitness in
 				solution = newSolution
 				solutionFitness = newFitness
 			}

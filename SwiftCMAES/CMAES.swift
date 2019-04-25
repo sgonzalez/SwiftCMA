@@ -91,7 +91,7 @@ class CMAES {
 	}
 	
 	/// Performs an evolutionary epoch.
-	func epoch<E: ObjectiveEvaluator>(evaluator: E, solutionCallback: (Vector, Double) -> ()) where E.Genome == Vector {
+	func epoch<E: ObjectiveEvaluator>(evaluator: inout E, solutionCallback: (Vector, Double) -> ()) where E.Genome == Vector {
 		// Generate offspring.
 		C.updateEigensystem(currentEval: countEval, lazyGapEvals: lazyGapEvals)
 		var candidateSolutions = [Vector]()

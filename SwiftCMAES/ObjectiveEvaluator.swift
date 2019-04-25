@@ -10,7 +10,7 @@ import Foundation
 
 protocol ObjectiveEvaluator {
 	associatedtype Genome
-	func objective(genome: Genome, solutionCallback: (Genome, Double) -> ()) -> Double
+	mutating func objective(genome: Genome, solutionCallback: (Genome, Double) -> ()) -> Double
 }
 
 
