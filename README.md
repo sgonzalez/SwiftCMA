@@ -8,7 +8,7 @@
 
 ### CMA-ES
 
-The specific implementation of CMA-ES is inspired from the MATLAB reference implementation on [Wikipedia](https://en.wikipedia.org/wiki/CMA-ES). The implementation supports arbitrary dimension solution spaces. 
+The specific implementation of CMA-ES is inspired by the MATLAB reference implementation on [Wikipedia](https://en.wikipedia.org/wiki/CMA-ES). The implementation supports arbitrarily-high dimension solution spaces.
 
 The primary `CMAES` object has two slightly different implementations of the main `epoch()` method.
 * One takes a closure that takes an array of candidate solution vectors and returns an array of corresponding objective function values. This allows your code to potentially calculate objective function values concurrently.
@@ -18,11 +18,12 @@ The primary `CMAES` object has two slightly different implementations of the mai
 
 Swift isn't traditionally thought of as a good language for linear algebra code, though I feel that's mainly due to the lack of linear algebra APIs. **SwiftCMA** provides a clean API for vectors and matrices, based on top of Swift arrays, that should feel familiar if you've used Eigen / MATLAB / Octave, or similar systems. This API has not been optimized to be as fast as it could be since objective-function evaluation is the biggest bottleneck by far for what I created this library for (metalearning). Pull requests are welcome!
 
-Functionality:
+Features:
 * Vectors and vector operations
 * Matrices and matrix operations
 * Vector-matrix operations
 * Eigendecomposition of matrices to get eigenvalues and an eigenbasis
+* Covariance matrix wrapper
 
 ### Unit Tests
 
@@ -48,20 +49,20 @@ Everything you need to use **SwiftCMA** is in the `Sources/` directory.
 		var fitness = MyObjectiveEvaluator()
 		let populationSize = CMAES.populationSize(forDimensions: startSolution.count)
 		let stepSigma: Double = ...
-		
+
 		let cmaes = CMAES(startSolution: startSolution, populationSize: populationSize, stepSigma: stepSigma)
 		var bestSolution: (Vector, Double)?
 		for i in 0..<1000 {
 			cmaes.epoch(evaluator: &fitness) { newSolution, newFitness in
 				print("Found solution with fitness \(fitness): \(solution)")
 			}
-	
+
 			if bestSolution == nil || bestSolution!.1 > cmaes.bestSolution!.1 {
 				bestSolution = cmaes.bestSolution
 			}
 			print("\(i):   \(cmaes.bestSolution!.1)")
 		}
-		
+
 		print("Best: \(bestSolution!.1): \(bestSolution!.0)")
 
 ### Defining an Objective Function
@@ -70,7 +71,7 @@ CMA-ES aims to find the global minimum, so your objective function must be formu
 
 	struct SphereObjectiveEvaluator: ObjectiveEvaluator {
 		typealias Genome = Vector
-	
+
 		func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
 			let value = genome.squaredMagnitude // Distance from origin is the error.
 			if diff < 0.01 { // We have found a solution when the difference is below a threshold.
@@ -82,7 +83,7 @@ CMA-ES aims to find the global minimum, so your objective function must be formu
 
 ### Dependencies
 
-The only external dependency is `LAPACK` (for eigendecomposition). On macOS, this is fulfilled by the built-in `Accelerate` framework. On Linux, you should use the [CLapacke-Linux](https://github.com/indisoluble/CLapacke-Linux) Swift wrapper around LAPACK, which is very easy to install using `APT`.
+The only external dependency is `LAPACK` (for eigendecomposition). On macOS, this is fulfilled by the built-in `Accelerate` framework. On Linux, you should use the [CLapacke-Linux](https://github.com/indisoluble/CLapacke-Linux) Swift wrapper around LAPACK, which is very easy to install using APT.
 
 
 ## Future Work
