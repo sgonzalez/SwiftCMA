@@ -39,51 +39,55 @@ Testing is great, so we have some unit tests as part of the Xcode project! More 
 
 ### Test App
 
-**SwiftCMA** comes with an Xcode project that builds a test app bundle. All code specific to this is in the `App/` directory. A quick note: the project builds an app bundle, rather than a basic executable, since it needs to link to `Accelerate.framework`.
+**SwiftCMA** comes with an Xcode project that builds a test app bundle. All code specific to this is in the `App/` directory. A quick note: the project builds an app bundle, rather than a basic executable, since it needs to link to `Accelerate.framework`. Tests live in the `Tests/` directory.
 
 ## Usage
 
 Everything you need to use **SwiftCMA** is in the `Sources/` directory.
 
-    let startSolution: Vector = ...
-		var fitness = MyObjectiveEvaluator()
-		let populationSize = CMAES.populationSize(forDimensions: startSolution.count)
-		let stepSigma: Double = ...
+```swift
+let startSolution: Vector = ...
+var fitness = MyObjectiveEvaluator()
+let populationSize = CMAES.populationSize(forDimensions: startSolution.count)
+let stepSigma: Double = ...
 
-		let cmaes = CMAES(startSolution: startSolution, populationSize: populationSize, stepSigma: stepSigma)
-		var bestSolution: (Vector, Double)?
-		for i in 0..<1000 {
-			cmaes.epoch(evaluator: &fitness) { newSolution, newFitness in
-				print("Found solution with fitness \(fitness): \(solution)")
-			}
+let cmaes = CMAES(startSolution: startSolution, populationSize: populationSize, stepSigma: stepSigma)
+var bestSolution: (Vector, Double)?
+for i in 0..<1000 {
+	cmaes.epoch(evaluator: &fitness) { newSolution, newFitness in
+		print("Found solution with fitness \(fitness): \(solution)")
+	}
 
-			if bestSolution == nil || bestSolution!.1 > cmaes.bestSolution!.1 {
-				bestSolution = cmaes.bestSolution
-			}
-			print("\(i):   \(cmaes.bestSolution!.1)")
-		}
+	if bestSolution == nil || bestSolution!.1 > cmaes.bestSolution!.1 {
+		bestSolution = cmaes.bestSolution
+	}
+	print("\(i):   \(cmaes.bestSolution!.1)")
+}
 
-		print("Best: \(bestSolution!.1): \(bestSolution!.0)")
+print("Best: \(bestSolution!.1): \(bestSolution!.0)")
+```
 
 ### Defining an Objective Function
 
 CMA-ES aims to find the global minimum, so your objective function must be formulated so that smaller values are better.
 
-	struct SphereObjectiveEvaluator: ObjectiveEvaluator {
-		typealias Genome = Vector
+```swift
+struct SphereObjectiveEvaluator: ObjectiveEvaluator {
+	typealias Genome = Vector
 
-		func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
-			let value = genome.squaredMagnitude // Distance from origin is the error.
-			if diff < 0.01 { // We have found a solution when the difference is below a threshold.
-				solutionCallback(genome, diff)
-			}
-			return genome.squared.sum
+	func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
+		let value = genome.squaredMagnitude // Distance from origin is the error.
+		if diff < 0.01 { // We have found a solution when the difference is below a threshold.
+			solutionCallback(genome, diff)
 		}
+		return genome.squared.sum
 	}
+}
+```
 
 ### Dependencies
 
-The only external dependency is `LAPACK` (for eigendecomposition). On macOS, this is fulfilled by the built-in `Accelerate` framework. On Linux, you should use the [CLapacke-Linux](https://github.com/indisoluble/CLapacke-Linux) Swift wrapper around LAPACK, which is very easy to install using APT.
+The only external dependency is `LAPACK` (for eigendecomposition). On macOS, this is fulfilled by the built-in `Accelerate` framework. On Linux, you should use the [CLapacke-Linux](https://github.com/indisoluble/CLapacke-Linux) Swift wrapper around `LAPACK`, which is very easy to install using APT.
 
 
 ## Future Work
