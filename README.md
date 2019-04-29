@@ -76,11 +76,11 @@ struct SphereObjectiveEvaluator: ObjectiveEvaluator {
 	typealias Genome = Vector
 
 	func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
-		let value = genome.squaredMagnitude // Distance from origin is the error.
-		if diff < 0.01 { // We have found a solution when the difference is below a threshold.
-			solutionCallback(genome, diff)
+		let value = genome.squaredMagnitude // We want to minimize our distance from the origin.
+		if value < 0.01 { // We have found a solution when our value is below a threshold.
+			solutionCallback(genome, value)
 		}
-		return genome.squared.sum
+		return value
 	}
 }
 ```
