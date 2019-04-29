@@ -8,7 +8,13 @@
 
 import Foundation
 
+/// Embodies Covariance Matrix Adaptation Evolutionary Strategy (CMA-ES)
 class CMAES {
+	
+	/// Returns a good population size for the specified number of dimensions.
+	static func populationSize(forDimensions n: Int) -> Int {
+		return Int(4+floor(3*log(Double(n))))
+	}
 	
 	/// Dimensionality.
 	let n: Int
@@ -53,6 +59,7 @@ class CMAES {
 	/// Gap to postpone eigendecomposition to achieve O(N**2) per eval.
 	let lazyGapEvals: Double
 	
+	/// Initializes a new CMA-ES run.
 	init(startSolution: Vector, populationSize: Int, stepSigma: Double) {
 		n = startSolution.count
 		xmean = startSolution
@@ -90,8 +97,19 @@ class CMAES {
 		lazyGapEvals = 0.5 * Double(n) * Double(populationSize) * (1.0 / (c1 + cmu)) / (Double(n) * Double(n)) // 0.5 is chosen such that eig takes 2 times the time of tell in >= 20-D		
 	}
 	
+	typealias SolutionCallback = (Vector, Double) -> ()
+	
+	/// A convenient wrapper for `epoch` that takes an objective evaluator.
+	func epoch<E: ObjectiveEvaluator>(evaluator: inout E, solutionCallback: @escaping SolutionCallback) where E.Genome == Vector {
+		epoch(valuesForCandidates: { candidateSolutions, innerSolutionCallback in
+			return candidateSolutions.map { solution in
+				return evaluator.objective(genome: solution, solutionCallback: innerSolutionCallback)
+			}
+		}, solutionCallback: solutionCallback)
+	}
+	
 	/// Performs an evolutionary epoch.
-	func epoch<E: ObjectiveEvaluator>(evaluator: inout E, solutionCallback: (Vector, Double) -> ()) where E.Genome == Vector {
+	func epoch(valuesForCandidates: ([Vector], @escaping SolutionCallback) -> ([Double]), solutionCallback: @escaping SolutionCallback) {
 		// Generate offspring.
 		C.updateEigensystem(currentEval: countEval, lazyGapEvals: lazyGapEvals)
 		var candidateSolutions = [Vector]()
@@ -102,11 +120,9 @@ class CMAES {
 		}
 		
 		// Evaluate fitnesses.
-		var fitnesses = candidateSolutions.map { solution in
-			return evaluator.objective(genome: solution, solutionCallback: solutionCallback)
-		}
+		var fitnesses = valuesForCandidates(candidateSolutions, solutionCallback)
 		
-		// Bookkeeping
+		// Bookkeeping.
 		countEval += Double(fitnesses.count)
 		
 		// Sort by fitness.
@@ -122,17 +138,11 @@ class CMAES {
 		let y = xmean - xold
 		let z = C.invsqrt.dot(vec: y)
 		let csn = sqrt(cs * (2.0 - cs) * mueff) / stepSigma
-//		ps = ps.enumerated().map { (1.0 - cs) * $1 + csn * z[$0] } // Update evolution path.
-		for i in 0..<n {
-			ps[i] = (1.0 - cs) * ps[i] + csn * z[i]
-		}
+		ps = ps.indexedMap { (1.0 - cs) * $1 + csn * z[$0] } // Update evolution path.
 		let ccn = sqrt(cc * (2.0 - cc) * mueff) / stepSigma
 		let hsig: Bool = (ps.squared.sum / Double(n) / (1.0 - pow(1.0 - cs, 2.0 * countEval / Double(populationSize)))) < 2.0 + 4.0 / (Double(n) + 1.0) // Turn off rank-one accumulation when sigma increases quickly.
 		let hsigValue = hsig ? 1.0 : 0.0
-//		pc = pc.enumerated().map { (1.0 - cc) * $1 + ccn * hsigValue * y[$0] } // Update evolution path.
-		for i in 0..<n {
-			pc[i] = (1.0 - cc) * pc[i] + ccn * hsigValue * y[i]
-		}
+		pc = pc.indexedMap { (1.0 - cc) * $1 + ccn * hsigValue * y[$0] } // Update evolution path.
 		
 		// Adapt covariance matrix C.
 		let c1a: Double = c1 * (1.0 - (1.0 - hsigValue * hsigValue) * cc * (2.0 - cc))

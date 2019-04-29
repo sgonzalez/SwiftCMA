@@ -10,6 +10,7 @@ import Foundation
 
 /// A symmetric, positive-definite matrix that maintains its own eigendecomposition.
 class DecomposingPositiveDefiniteMatrix {
+	
 	/// The backing matrix.
 	var matrix: Matrix
 	/// The matrix's dimension.
@@ -20,12 +21,13 @@ class DecomposingPositiveDefiniteMatrix {
 	/// The matrix's eigenvalues.
 	var eigenvalues: Vector
 	
-	/// The "squooshinnes" of the distribution. More spherical distributions
+	/// The "squooshinnes" of the distribution; the ratio of the largest eigenvalue to the smallest eigenvalue. More spherical distributions
 	/// have a smaller condition number.
 	var conditionNumber: Double
 	var invsqrt: Matrix
 	var updatedEval: Double
 	
+	/// Creates a new matrix of the specified dimension.
 	init(dim: Int) {
 		n = dim
 		matrix = Matrix.identity(dim: n)
@@ -42,7 +44,7 @@ class DecomposingPositiveDefiniteMatrix {
 		
 		enforceSymmetry()
 		
-		(eigenvalues, eigenbasis) = eigenDecompose(matrix) // O(N**3)
+		(eigenvalues, eigenbasis) = eigenDecompose(matrix)
 		guard eigenvalues.min()! > 0 else {
 			fatalError("Found negative eigenvalue!")
 		}
@@ -52,7 +54,7 @@ class DecomposingPositiveDefiniteMatrix {
 		// O(n^3) and takes about 25% of the time of eig
 		for i in 0..<n {
 			for j in 0..<(i+1) {
-				let sum = eigenvalues.enumerated().map { k, eigenvalue in
+				let sum = eigenvalues.indexedMap { k, eigenvalue in
 					return eigenbasis[i][k] * eigenbasis[j][k] / sqrt(eigenvalue)
 				}.sum
 				invsqrt[i][j] = sum

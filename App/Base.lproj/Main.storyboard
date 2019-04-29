@@ -708,6 +708,20 @@
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wy3-ee-SQg">
+                                <rect key="frame" x="113" y="232" width="254" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Nothing to see here. Look at the console." id="Wx5-1p-28M">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Wy3-ee-SQg" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="7Xt-PS-cly"/>
+                            <constraint firstItem="Wy3-ee-SQg" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="n8T-v0-2dd"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

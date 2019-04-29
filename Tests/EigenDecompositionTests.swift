@@ -9,6 +9,7 @@
 import XCTest
 @testable import SwiftCMAES
 
+/// A helper to check for equality between floating-point numbers.
 func epsilonEqual(_ a: Double, _ b: Double, epsilon: Double = 0.0001) -> Bool {
 	return a > b - epsilon && a < b + epsilon
 }
@@ -22,19 +23,31 @@ class EigenDecompositionTests: XCTestCase {
 		XCTAssertEqual(eig.1, [[1.0, 0.0], [0.0, 1.0]])
     }
 	
+	func testIdentityEigen() {
+		let mat = Matrix.identity(dim: 4)
+		let eig = eigenDecompose(mat)
+		XCTAssertEqual(eig.0, [1.0, 1.0, 1.0, 1.0])
+		XCTAssertEqual(eig.1, [
+			[1.0, 0.0, 0.0, 0.0],
+			[0.0, 1.0, 0.0, 0.0],
+			[0.0, 0.0, 1.0, 0.0],
+			[0.0, 0.0, 0.0, 1.0]
+		])
+	}
+	
 	func testMoreComplexEigen() {
 		let mat = Matrix([[2,-1,0],[-1,2,-1],[0,-1,2]])
 		let eig = eigenDecompose(mat)
 		let trueValues = [2.0-sqrt(2.0), 2.0, 2.0+sqrt(2.0)]
-		let trueVecs = Matrix([[1, +sqrt(2.0), 1], [-1, 0, 1], [1, -sqrt(2.0), 1]]).map { $0.normalized }
+		var trueVecs = Matrix([[1, +sqrt(2.0), 1], [-1, 0, 1], [1, -sqrt(2.0), 1]]).map { $0.normalized }
 		// Check eigenvalues.
 		XCTAssertTrue(epsilonEqual(eig.0[0], trueValues[0]))
 		XCTAssertTrue(epsilonEqual(eig.0[1], trueValues[1]))
 		XCTAssertTrue(epsilonEqual(eig.0[2], trueValues[2]))
 		// Check eigenvector 1.
-		XCTAssertTrue(epsilonEqual(eig.1[0][0], trueVecs[0][0]))
-		XCTAssertTrue(epsilonEqual(eig.1[1][0], trueVecs[0][1]))
-		XCTAssertTrue(epsilonEqual(eig.1[2][0], trueVecs[0][2]))
+		XCTAssertTrue(epsilonEqual(eig.1[0][0], -trueVecs[0][0]))
+		XCTAssertTrue(epsilonEqual(eig.1[1][0], -trueVecs[0][1]))
+		XCTAssertTrue(epsilonEqual(eig.1[2][0], -trueVecs[0][2]))
 		// Check eigenvector 2.
 		XCTAssertTrue(epsilonEqual(eig.1[0][1], trueVecs[1][0]))
 		XCTAssertTrue(epsilonEqual(eig.1[1][1], trueVecs[1][1]))

@@ -17,7 +17,7 @@
                BlueprintIdentifier = "7E751E6E226251EC009E5A87"
                BuildableName = "SwiftCMAES.app"
                BlueprintName = "SwiftCMAES"
-               ReferencedContainer = "container:SwiftCMAES.xcodeproj">
+               ReferencedContainer = "container:SwiftCMA.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "7E751E80226251EF009E5A87"
                BuildableName = "SwiftCMAESTests.xctest"
                BlueprintName = "SwiftCMAESTests"
-               ReferencedContainer = "container:SwiftCMAES.xcodeproj">
+               ReferencedContainer = "container:SwiftCMA.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -45,7 +45,7 @@
             BlueprintIdentifier = "7E751E6E226251EC009E5A87"
             BuildableName = "SwiftCMAES.app"
             BlueprintName = "SwiftCMAES"
-            ReferencedContainer = "container:SwiftCMAES.xcodeproj">
+            ReferencedContainer = "container:SwiftCMA.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -68,7 +68,7 @@
             BlueprintIdentifier = "7E751E6E226251EC009E5A87"
             BuildableName = "SwiftCMAES.app"
             BlueprintName = "SwiftCMAES"
-            ReferencedContainer = "container:SwiftCMAES.xcodeproj">
+            ReferencedContainer = "container:SwiftCMA.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -87,7 +87,7 @@
             BlueprintIdentifier = "7E751E6E226251EC009E5A87"
             BuildableName = "SwiftCMAES.app"
             BlueprintName = "SwiftCMAES"
-            ReferencedContainer = "container:SwiftCMAES.xcodeproj">
+            ReferencedContainer = "container:SwiftCMA.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

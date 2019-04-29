@@ -7,19 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7E751E73226251EC009E5A87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E72226251EC009E5A87 /* AppDelegate.swift */; };
-		7E751E75226251EC009E5A87 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E74226251EC009E5A87 /* ViewController.swift */; };
-		7E751E77226251EF009E5A87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E751E76226251EF009E5A87 /* Assets.xcassets */; };
-		7E751E7A226251EF009E5A87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E751E78226251EF009E5A87 /* Main.storyboard */; };
-		7E751E86226251EF009E5A87 /* SwiftCMAESTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E85226251EF009E5A87 /* SwiftCMAESTests.swift */; };
-		7E751E9122625203009E5A87 /* LinearAlgebra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E9022625203009E5A87 /* LinearAlgebra.swift */; };
-		7E751E932262521E009E5A87 /* DecomposingPositiveDefiniteMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E922262521E009E5A87 /* DecomposingPositiveDefiniteMatrix.swift */; };
-		7E751E9522625236009E5A87 /* ObjectiveEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E9422625236009E5A87 /* ObjectiveEvaluator.swift */; };
-		7E751E972262524C009E5A87 /* CMAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E962262524C009E5A87 /* CMAES.swift */; };
-		7E751E9922625623009E5A87 /* EigenDecomposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E9822625623009E5A87 /* EigenDecomposition.swift */; };
-		7E751E9B22625D1A009E5A87 /* EigenDecompositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751E9A22625D1A009E5A87 /* EigenDecompositionTests.swift */; };
-		7E751EE5226BC254009E5A87 /* LinearAlgebraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751EE4226BC254009E5A87 /* LinearAlgebraTests.swift */; };
-		7E751EEF226CDB7A009E5A87 /* Double+ProbabilityDistributions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751EEE226CDB7A009E5A87 /* Double+ProbabilityDistributions.swift */; };
+		7E751F4C2277B330009E5A87 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F462277B330009E5A87 /* Vector.swift */; };
+		7E751F4D2277B330009E5A87 /* ObjectiveEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F472277B330009E5A87 /* ObjectiveEvaluator.swift */; };
+		7E751F4E2277B330009E5A87 /* CMAES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F482277B330009E5A87 /* CMAES.swift */; };
+		7E751F4F2277B330009E5A87 /* Double+ProbabilityDistributions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F492277B330009E5A87 /* Double+ProbabilityDistributions.swift */; };
+		7E751F502277B330009E5A87 /* DecomposingPositiveDefiniteMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F4A2277B330009E5A87 /* DecomposingPositiveDefiniteMatrix.swift */; };
+		7E751F512277B330009E5A87 /* EigenDecomposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F4B2277B330009E5A87 /* EigenDecomposition.swift */; };
+		7E751F632277B369009E5A87 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F5E2277B369009E5A87 /* ViewController.swift */; };
+		7E751F642277B369009E5A87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E751F5F2277B369009E5A87 /* Assets.xcassets */; };
+		7E751F652277B369009E5A87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F602277B369009E5A87 /* AppDelegate.swift */; };
+		7E751F6A2277B384009E5A87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E751F682277B384009E5A87 /* Main.storyboard */; };
+		7E751F6C2277B3AC009E5A87 /* EigenDecompositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F522277B34E009E5A87 /* EigenDecompositionTests.swift */; };
+		7E751F6D2277B3AC009E5A87 /* LinearAlgebraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F542277B34E009E5A87 /* LinearAlgebraTests.swift */; };
+		7E751F702277BC32009E5A87 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F6F2277BC32009E5A87 /* Matrix.swift */; };
+		7E751F722277BC7D009E5A87 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E751F712277BC7D009E5A87 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,23 +35,24 @@
 
 /* Begin PBXFileReference section */
 		7E751E6F226251EC009E5A87 /* SwiftCMAES.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftCMAES.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E751E72226251EC009E5A87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7E751E74226251EC009E5A87 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7E751E76226251EF009E5A87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7E751E79226251EF009E5A87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7E751E7B226251EF009E5A87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7E751E7C226251EF009E5A87 /* SwiftCMAES.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftCMAES.entitlements; sourceTree = "<group>"; };
 		7E751E81226251EF009E5A87 /* SwiftCMAESTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftCMAESTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E751E85226251EF009E5A87 /* SwiftCMAESTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftCMAESTests.swift; sourceTree = "<group>"; };
-		7E751E87226251EF009E5A87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7E751E9022625203009E5A87 /* LinearAlgebra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearAlgebra.swift; sourceTree = "<group>"; };
-		7E751E922262521E009E5A87 /* DecomposingPositiveDefiniteMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecomposingPositiveDefiniteMatrix.swift; sourceTree = "<group>"; };
-		7E751E9422625236009E5A87 /* ObjectiveEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveEvaluator.swift; sourceTree = "<group>"; };
-		7E751E962262524C009E5A87 /* CMAES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMAES.swift; sourceTree = "<group>"; };
-		7E751E9822625623009E5A87 /* EigenDecomposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EigenDecomposition.swift; sourceTree = "<group>"; };
-		7E751E9A22625D1A009E5A87 /* EigenDecompositionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EigenDecompositionTests.swift; sourceTree = "<group>"; };
-		7E751EE4226BC254009E5A87 /* LinearAlgebraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearAlgebraTests.swift; sourceTree = "<group>"; };
-		7E751EEE226CDB7A009E5A87 /* Double+ProbabilityDistributions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+ProbabilityDistributions.swift"; sourceTree = "<group>"; };
+		7E751F462277B330009E5A87 /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
+		7E751F472277B330009E5A87 /* ObjectiveEvaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveEvaluator.swift; sourceTree = "<group>"; };
+		7E751F482277B330009E5A87 /* CMAES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMAES.swift; sourceTree = "<group>"; };
+		7E751F492277B330009E5A87 /* Double+ProbabilityDistributions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+ProbabilityDistributions.swift"; sourceTree = "<group>"; };
+		7E751F4A2277B330009E5A87 /* DecomposingPositiveDefiniteMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecomposingPositiveDefiniteMatrix.swift; sourceTree = "<group>"; };
+		7E751F4B2277B330009E5A87 /* EigenDecomposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EigenDecomposition.swift; sourceTree = "<group>"; };
+		7E751F522277B34E009E5A87 /* EigenDecompositionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EigenDecompositionTests.swift; sourceTree = "<group>"; };
+		7E751F532277B34E009E5A87 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E751F542277B34E009E5A87 /* LinearAlgebraTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearAlgebraTests.swift; sourceTree = "<group>"; };
+		7E751F5D2277B369009E5A87 /* SwiftCMAES.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = SwiftCMAES.entitlements; sourceTree = "<group>"; };
+		7E751F5E2277B369009E5A87 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7E751F5F2277B369009E5A87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7E751F602277B369009E5A87 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7E751F612277B369009E5A87 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E751F692277B384009E5A87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		7E751F6F2277BC32009E5A87 /* Matrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
+		7E751F712277BC7D009E5A87 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,8 +76,9 @@
 		7E751E66226251EC009E5A87 = {
 			isa = PBXGroup;
 			children = (
-				7E751E71226251EC009E5A87 /* SwiftCMAES */,
-				7E751E84226251EF009E5A87 /* SwiftCMAESTests */,
+				7E751F432277B28E009E5A87 /* App */,
+				7E751F412277B258009E5A87 /* Sources */,
+				7E751F3F2277B258009E5A87 /* Tests */,
 				7E751E70226251EC009E5A87 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,34 +92,50 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7E751E71226251EC009E5A87 /* SwiftCMAES */ = {
+		7E751F3F2277B258009E5A87 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				7E751E72226251EC009E5A87 /* AppDelegate.swift */,
-				7E751E74226251EC009E5A87 /* ViewController.swift */,
-				7E751E76226251EF009E5A87 /* Assets.xcassets */,
-				7E751E78226251EF009E5A87 /* Main.storyboard */,
-				7E751E7B226251EF009E5A87 /* Info.plist */,
-				7E751E7C226251EF009E5A87 /* SwiftCMAES.entitlements */,
-				7E751E9022625203009E5A87 /* LinearAlgebra.swift */,
-				7E751EEE226CDB7A009E5A87 /* Double+ProbabilityDistributions.swift */,
-				7E751E9822625623009E5A87 /* EigenDecomposition.swift */,
-				7E751E922262521E009E5A87 /* DecomposingPositiveDefiniteMatrix.swift */,
-				7E751E9422625236009E5A87 /* ObjectiveEvaluator.swift */,
-				7E751E962262524C009E5A87 /* CMAES.swift */,
+				7E751F522277B34E009E5A87 /* EigenDecompositionTests.swift */,
+				7E751F542277B34E009E5A87 /* LinearAlgebraTests.swift */,
+				7E751F532277B34E009E5A87 /* Info.plist */,
 			);
-			path = SwiftCMAES;
+			path = Tests;
 			sourceTree = "<group>";
 		};
-		7E751E84226251EF009E5A87 /* SwiftCMAESTests */ = {
+		7E751F412277B258009E5A87 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				7E751E85226251EF009E5A87 /* SwiftCMAESTests.swift */,
-				7E751E9A22625D1A009E5A87 /* EigenDecompositionTests.swift */,
-				7E751EE4226BC254009E5A87 /* LinearAlgebraTests.swift */,
-				7E751E87226251EF009E5A87 /* Info.plist */,
+				7E751F482277B330009E5A87 /* CMAES.swift */,
+				7E751F472277B330009E5A87 /* ObjectiveEvaluator.swift */,
+				7E751F4A2277B330009E5A87 /* DecomposingPositiveDefiniteMatrix.swift */,
+				7E751F492277B330009E5A87 /* Double+ProbabilityDistributions.swift */,
+				7E751F4B2277B330009E5A87 /* EigenDecomposition.swift */,
+				7E751F462277B330009E5A87 /* Vector.swift */,
+				7E751F6F2277BC32009E5A87 /* Matrix.swift */,
+				7E751F712277BC7D009E5A87 /* Utilities.swift */,
 			);
-			path = SwiftCMAESTests;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		7E751F432277B28E009E5A87 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7E751F602277B369009E5A87 /* AppDelegate.swift */,
+				7E751F5E2277B369009E5A87 /* ViewController.swift */,
+				7E751F5F2277B369009E5A87 /* Assets.xcassets */,
+				7E751F672277B384009E5A87 /* Base.lproj */,
+				7E751F612277B369009E5A87 /* Info.plist */,
+				7E751F5D2277B369009E5A87 /* SwiftCMAES.entitlements */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		7E751F672277B384009E5A87 /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				7E751F682277B384009E5A87 /* Main.storyboard */,
+			);
+			path = Base.lproj;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +188,11 @@
 				TargetAttributes = {
 					7E751E6E226251EC009E5A87 = {
 						CreatedOnToolsVersion = 10.2;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					7E751E80226251EF009E5A87 = {
 						CreatedOnToolsVersion = 10.2;
@@ -176,7 +200,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7E751E6A226251EC009E5A87 /* Build configuration list for PBXProject "SwiftCMAES" */;
+			buildConfigurationList = 7E751E6A226251EC009E5A87 /* Build configuration list for PBXProject "SwiftCMA" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -200,8 +224,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E751E77226251EF009E5A87 /* Assets.xcassets in Resources */,
-				7E751E7A226251EF009E5A87 /* Main.storyboard in Resources */,
+				7E751F642277B369009E5A87 /* Assets.xcassets in Resources */,
+				7E751F6A2277B384009E5A87 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,14 +243,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E751E9922625623009E5A87 /* EigenDecomposition.swift in Sources */,
-				7E751E75226251EC009E5A87 /* ViewController.swift in Sources */,
-				7E751EEF226CDB7A009E5A87 /* Double+ProbabilityDistributions.swift in Sources */,
-				7E751E9122625203009E5A87 /* LinearAlgebra.swift in Sources */,
-				7E751E9522625236009E5A87 /* ObjectiveEvaluator.swift in Sources */,
-				7E751E932262521E009E5A87 /* DecomposingPositiveDefiniteMatrix.swift in Sources */,
-				7E751E73226251EC009E5A87 /* AppDelegate.swift in Sources */,
-				7E751E972262524C009E5A87 /* CMAES.swift in Sources */,
+				7E751F652277B369009E5A87 /* AppDelegate.swift in Sources */,
+				7E751F632277B369009E5A87 /* ViewController.swift in Sources */,
+				7E751F702277BC32009E5A87 /* Matrix.swift in Sources */,
+				7E751F4D2277B330009E5A87 /* ObjectiveEvaluator.swift in Sources */,
+				7E751F502277B330009E5A87 /* DecomposingPositiveDefiniteMatrix.swift in Sources */,
+				7E751F512277B330009E5A87 /* EigenDecomposition.swift in Sources */,
+				7E751F4C2277B330009E5A87 /* Vector.swift in Sources */,
+				7E751F4F2277B330009E5A87 /* Double+ProbabilityDistributions.swift in Sources */,
+				7E751F722277BC7D009E5A87 /* Utilities.swift in Sources */,
+				7E751F4E2277B330009E5A87 /* CMAES.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,9 +260,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E751EE5226BC254009E5A87 /* LinearAlgebraTests.swift in Sources */,
-				7E751E9B22625D1A009E5A87 /* EigenDecompositionTests.swift in Sources */,
-				7E751E86226251EF009E5A87 /* SwiftCMAESTests.swift in Sources */,
+				7E751F6D2277B3AC009E5A87 /* LinearAlgebraTests.swift in Sources */,
+				7E751F6C2277B3AC009E5A87 /* EigenDecompositionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,10 +276,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7E751E78226251EF009E5A87 /* Main.storyboard */ = {
+		7E751F682277B384009E5A87 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7E751E79226251EF009E5A87 /* Base */,
+				7E751F692277B384009E5A87 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -381,17 +406,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = SwiftCMAES/SwiftCMAES.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/SwiftCMAES.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 28CKN66NP3;
-				INFOPLIST_FILE = SwiftCMAES/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.santiagogonzalez.SwiftCMAES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -400,17 +427,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = SwiftCMAES/SwiftCMAES.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/SwiftCMAES.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 28CKN66NP3;
-				INFOPLIST_FILE = SwiftCMAES/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.santiagogonzalez.SwiftCMAES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -423,7 +452,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 28CKN66NP3;
-				INFOPLIST_FILE = SwiftCMAESTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -444,7 +473,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 28CKN66NP3;
-				INFOPLIST_FILE = SwiftCMAESTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -460,7 +489,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7E751E6A226251EC009E5A87 /* Build configuration list for PBXProject "SwiftCMAES" */ = {
+		7E751E6A226251EC009E5A87 /* Build configuration list for PBXProject "SwiftCMA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7E751E88226251EF009E5A87 /* Debug */,

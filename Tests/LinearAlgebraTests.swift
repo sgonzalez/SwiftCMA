@@ -9,7 +9,6 @@
 import XCTest
 @testable import SwiftCMAES
 
-
 class LinearAlgebraTests: XCTestCase {
 	
 	func testProperties() {

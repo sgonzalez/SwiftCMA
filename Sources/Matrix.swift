@@ -1,68 +1,16 @@
 //
-//  LinearAlgebra.swift
+//  Matrix.swift
 //  SwiftCMAES
 //
-//  Created by Santiago Gonzalez on 4/13/19.
+//  Created by Santiago Gonzalez on 4/29/19.
 //  Copyright © 2019 Santiago Gonzalez. All rights reserved.
 //
 
 import Foundation
 
-typealias Vector = [Double]
-
-extension Vector {
-	/// Returns a vector of zeros.
-	static func zeros(_ dim: Int) -> Vector {
-		return Vector(repeating: 0.0, count: dim)
-	}
-	
-	/// Returns a vector of ones.
-	static func ones(_ dim: Int) -> Vector {
-		return Vector(repeating: 1.0, count: dim)
-	}
-	
-	/// Returns the vector's squared magnitude.
-	var squaredMagnitude: Double {
-		return self.reduce(0, { $0 + $1 * $1 })
-	}
-	
-	/// Returns a normalized version of the vector.
-	var normalized: Vector {
-		return self / sqrt(squaredMagnitude)
-	}
-	
-	/// Returns the sum of the vector's elements.
-	var sum: Double {
-		return self.reduce(0, { $0 + $1 })
-	}
-	
-	var squared: Vector {
-		return self.map { $0 * $0 }
-	}
-	
-	/// Performs element-wise multiplication.
-	mutating func multiply(_ scalar: Double) {
-		for i in 0..<count {
-			self[i] *= scalar
-		}
-	}
-}
-
-func - (left: Vector, right: Vector) -> Vector {
-	return left.enumerated().map { $1 - right[$0] }
-}
-
-func + (left: Vector, right: Vector) -> Vector {
-	return left.enumerated().map { $1 + right[$0] }
-}
-
-func / (left: Vector, right: Double) -> Vector {
-	return left.map { $0 / right }
-}
-
+/// Matrices are row-major, 2D arrays of floating-point numbers.
 typealias Matrix = [Vector]
 
-// NOTE: Matrices are treated in row-major order.
 extension Matrix {
 	/// Returns a new identity matrix of the specified size.
 	static func identity(dim: Int) -> Matrix {
@@ -87,9 +35,9 @@ extension Matrix {
 		var out = Vector.zeros(transpose ? self[0].count : self.count)
 		for i in 0..<out.count {
 			let sumVec = Vector.zeros(vec.count)
-			out[i] = sumVec.enumerated().map { j, x in
+			out[i] = sumVec.indexedMap { j, x in
 				return self[transpose ? j : i][transpose ? i : j] * vec[j]
-			}.sum
+				}.sum
 		}
 		return out
 	}
@@ -101,7 +49,8 @@ extension Matrix {
 		}
 	}
 	
-	/// Adds the outer product of the specified vector with itself to the matrix, with an optional multiplier.
+	/// Adds the outer product of the specified vector with itself to the
+	/// matrix, with an optional multiplier.
 	mutating func addOuterProduct(vec: Vector, multiplier: Double = 1.0) {
 		for i in 0..<count {
 			for j in 0..<self[0].count {
@@ -112,11 +61,11 @@ extension Matrix {
 }
 
 func + (left: Matrix, right: Matrix) -> Matrix {
-	return left.enumerated().map { $1 + right[$0] }
+	return left.indexedMap { $1 + right[$0] }
 }
 
 extension Collection where Self.Iterator.Element: RandomAccessCollection {
-	/// Transposes 2D arrays (i.e., matrices)
+	/// Transposes 2D arrays (i.e., matrices).
 	func transposed() -> [[Self.Iterator.Element.Iterator.Element]] {
 		guard let firstRow = self.first else { return [] }
 		return firstRow.indices.map { index in
