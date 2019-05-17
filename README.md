@@ -8,7 +8,7 @@
 
 ### CMA-ES
 
-The specific implementation of CMA-ES is inspired by the MATLAB reference implementation on [Wikipedia](https://en.wikipedia.org/wiki/CMA-ES). The implementation supports arbitrarily-high dimension solution spaces.
+The specific implementation of CMA-ES is inspired by the MATLAB reference implementation on [Wikipedia](https://en.wikipedia.org/wiki/CMA-ES). The implementation supports arbitrarily-high dimension solution spaces. The specific flavor of CMA-ES that's implemented is (mu/mu,lambda)-CMA-ES with weighted rank-mu updates.
 
 The primary `CMAES` object has two slightly different implementations of the main `epoch()` method.
 * One takes a closure that takes an array of candidate solution vectors and returns an array of corresponding objective function values. This allows your code to potentially calculate objective function values concurrently.

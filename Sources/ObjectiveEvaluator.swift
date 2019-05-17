@@ -8,12 +8,15 @@
 
 import Foundation
 
+/// Implemented by types that can return objective function values.
 protocol ObjectiveEvaluator {
 	associatedtype Genome
+	/// Returns the objective for the given genome. Smaller values are better.
 	mutating func objective(genome: Genome, solutionCallback: (Genome, Double) -> ()) -> Double
 }
 
 
+/// A reference objective evaluator for an N-dimensional sphere.
 struct SphereObjectiveEvaluator: ObjectiveEvaluator {
 	typealias Genome = Vector
 	
@@ -26,6 +29,7 @@ struct SphereObjectiveEvaluator: ObjectiveEvaluator {
 	}
 }
 
+/// A reference objective evaluator for an N-dimensional Rastrigin function.
 struct RastriginObjectiveEvaluator: ObjectiveEvaluator {
 	typealias Genome = Vector
 	
@@ -44,7 +48,7 @@ struct RastriginObjectiveEvaluator: ObjectiveEvaluator {
 	}
 }
 
-
+/// A reference objective evaluator for an N-dimensional Ackley function.
 struct AckleyObjectiveEvaluator: ObjectiveEvaluator {
 	typealias Genome = Vector
 	
