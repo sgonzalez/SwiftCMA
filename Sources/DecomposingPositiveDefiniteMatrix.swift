@@ -21,8 +21,9 @@ class DecomposingPositiveDefiniteMatrix {
 	/// The matrix's eigenvalues.
 	var eigenvalues: Vector
 	
-	/// The "squooshinnes" of the distribution; the ratio of the largest eigenvalue to the smallest eigenvalue. More spherical distributions
-	/// have a smaller condition number.
+	/// The "squooshinnes" of the distribution; the ratio of the largest
+	/// eigenvalue to the smallest eigenvalue. More spherical distributions have
+	/// a smaller condition number.
 	var conditionNumber: Double
 	var invsqrt: Matrix
 	var updatedEval: Double
