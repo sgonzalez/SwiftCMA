@@ -9,7 +9,7 @@
 import Foundation
 
 /// Implemented by types that can return objective function values.
-protocol ObjectiveEvaluator {
+public protocol ObjectiveEvaluator {
 	associatedtype Genome
 	/// Returns the objective for the given genome. Smaller values are better.
 	mutating func objective(genome: Genome, solutionCallback: (Genome, Double) -> ()) -> Double
@@ -17,10 +17,12 @@ protocol ObjectiveEvaluator {
 
 
 /// A reference objective evaluator for an N-dimensional sphere.
-struct SphereObjectiveEvaluator: ObjectiveEvaluator {
-	typealias Genome = Vector
+public struct SphereObjectiveEvaluator: ObjectiveEvaluator {
+	public typealias Genome = Vector
 	
-	func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
+	public init() { }
+	
+	public func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
 		let diff = genome.squaredMagnitude // Distance from origin is the error.
 		if diff < 0.01 {
 			solutionCallback(genome, diff)
@@ -30,8 +32,10 @@ struct SphereObjectiveEvaluator: ObjectiveEvaluator {
 }
 
 /// A reference objective evaluator for an N-dimensional Rastrigin function.
-struct RastriginObjectiveEvaluator: ObjectiveEvaluator {
-	typealias Genome = Vector
+public struct RastriginObjectiveEvaluator: ObjectiveEvaluator {
+	public typealias Genome = Vector
+	
+	public init() { }
 	
 	func rastrigin(invec: Vector) -> Double {
 		let sumTerms = invec.map { $0 * $0 - 10.0 * cos(2.0 * Double.pi * $0) }
@@ -39,7 +43,7 @@ struct RastriginObjectiveEvaluator: ObjectiveEvaluator {
 		return 10.0 * Double(invec.count) + summedTerm
 	}
 	
-	func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
+	public func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
 		let diff = genome.squaredMagnitude // Distance from origin is the error.
 		if diff < 0.1 {
 			solutionCallback(genome, diff)
@@ -49,8 +53,10 @@ struct RastriginObjectiveEvaluator: ObjectiveEvaluator {
 }
 
 /// A reference objective evaluator for an N-dimensional Ackley function.
-struct AckleyObjectiveEvaluator: ObjectiveEvaluator {
-	typealias Genome = Vector
+public struct AckleyObjectiveEvaluator: ObjectiveEvaluator {
+	public typealias Genome = Vector
+	
+	public init() { }
 	
 	func ackley(invec: Vector) -> Double {
 		let cosTerms = invec.map { cos(2.0 * Double.pi * $0) }
@@ -58,7 +64,7 @@ struct AckleyObjectiveEvaluator: ObjectiveEvaluator {
 		return -20.0 * exp(-0.2 * sqrt(invec.squared.sum)) - exp(0.5 * cosTerms.sum) + e + 20.0
 	}
 	
-	func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
+	public func objective(genome: Vector, solutionCallback: (Vector, Double) -> ()) -> Double {
 		let diff = genome.squaredMagnitude // Distance from origin is the error.
 		if diff < 0.1 {
 			solutionCallback(genome, diff)

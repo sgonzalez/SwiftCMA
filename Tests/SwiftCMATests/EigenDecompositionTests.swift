@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import SwiftCMAES
+@testable import SwiftCMA
 
 /// A helper to check for equality between floating-point numbers.
 func epsilonEqual(_ a: Double, _ b: Double, epsilon: Double = 0.0001) -> Bool {
@@ -39,7 +39,7 @@ class EigenDecompositionTests: XCTestCase {
 		let mat = Matrix([[2,-1,0],[-1,2,-1],[0,-1,2]])
 		let eig = eigenDecompose(mat)
 		let trueValues = [2.0-sqrt(2.0), 2.0, 2.0+sqrt(2.0)]
-		var trueVecs = Matrix([[1, +sqrt(2.0), 1], [-1, 0, 1], [1, -sqrt(2.0), 1]]).map { $0.normalized }
+		let trueVecs = Matrix([[1, +sqrt(2.0), 1], [-1, 0, 1], [1, -sqrt(2.0), 1]]).map { $0.normalized }
 		// Check eigenvalues.
 		XCTAssertTrue(epsilonEqual(eig.0[0], trueValues[0]))
 		XCTAssertTrue(epsilonEqual(eig.0[1], trueValues[1]))
@@ -57,6 +57,12 @@ class EigenDecompositionTests: XCTestCase {
 		XCTAssertTrue(epsilonEqual(eig.1[1][2], trueVecs[2][1]))
 		XCTAssertTrue(epsilonEqual(eig.1[2][2], trueVecs[2][2]))
 	}
+	
+	static var allTests = [
+		("testBasicEigen", testBasicEigen),
+		("testIdentityEigen", testIdentityEigen),
+		("testMoreComplexEigen", testMoreComplexEigen),
+    ]
 	
 }
 

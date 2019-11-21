@@ -9,19 +9,19 @@
 import Foundation
 
 /// Embodies Covariance Matrix Adaptation Evolutionary Strategy (CMA-ES)
-class CMAES {
+public class CMAES {
 	
 	/// Returns a good population size for the specified number of dimensions.
-	static func populationSize(forDimensions n: Int) -> Int {
+	public static func populationSize(forDimensions n: Int) -> Int {
 		return Int(4+floor(3*log(Double(n))))
 	}
 	
 	/// Dimensionality.
-	let n: Int
+	public let n: Int
 	/// The number of solutions at each generation.
-	let populationSize: Int
+	public let populationSize: Int
 	/// Step size, standard deviation.
-	var stepSigma: Double
+	private(set) public var stepSigma: Double
 	/// Points for recombination.
 	let mu: Int
 	/// Variance-effectiveness.
@@ -41,9 +41,9 @@ class CMAES {
 	let damps: Double
 	
 	/// Distribution mean.
-	var xmean: Vector
+	private(set) public var xmean: Vector
 	/// The best.
-	var bestSolution: (Vector, Double)?
+	private(set) public var bestSolution: (Vector, Double)?
 	/// Evolution path for C; anisotropic evolution path.
 	var pc: Vector
 	/// Evolution path for sigma; isotropic evolution path.
@@ -60,7 +60,7 @@ class CMAES {
 	let lazyGapEvals: Double
 	
 	/// Initializes a new CMA-ES run.
-	init(startSolution: Vector, populationSize: Int, stepSigma: Double) {
+	public init(startSolution: Vector, populationSize: Int, stepSigma: Double) {
 		n = startSolution.count
 		xmean = startSolution
 		self.populationSize = populationSize
@@ -97,10 +97,10 @@ class CMAES {
 		lazyGapEvals = 0.5 * Double(n) * Double(populationSize) * (1.0 / (c1 + cmu)) / (Double(n) * Double(n)) // 0.5 is chosen such that eig takes 2 times the time of tell in >= 20-D		
 	}
 	
-	typealias SolutionCallback = (Vector, Double) -> ()
+	public typealias SolutionCallback = (Vector, Double) -> ()
 	
 	/// A convenient wrapper for `epoch` that takes an objective evaluator.
-	func epoch<E: ObjectiveEvaluator>(evaluator: inout E, solutionCallback: @escaping SolutionCallback) where E.Genome == Vector {
+	public func epoch<E: ObjectiveEvaluator>(evaluator: inout E, solutionCallback: @escaping SolutionCallback) where E.Genome == Vector {
 		epoch(valuesForCandidates: { candidateSolutions, innerSolutionCallback in
 			return candidateSolutions.map { solution in
 				return evaluator.objective(genome: solution, solutionCallback: innerSolutionCallback)
@@ -109,7 +109,7 @@ class CMAES {
 	}
 	
 	/// Performs an evolutionary epoch.
-	func epoch(valuesForCandidates: ([Vector], @escaping SolutionCallback) -> ([Double]), solutionCallback: @escaping SolutionCallback) {
+	public func epoch(valuesForCandidates: ([Vector], @escaping SolutionCallback) -> ([Double]), solutionCallback: @escaping SolutionCallback) {
 		// Generate offspring.
 		C.updateEigensystem(currentEval: countEval, lazyGapEvals: lazyGapEvals)
 		var candidateSolutions = [Vector]()
@@ -121,6 +121,7 @@ class CMAES {
 		
 		// Evaluate fitnesses.
 		var fitnesses = valuesForCandidates(candidateSolutions, solutionCallback)
+		assert(fitnesses.count == candidateSolutions.count)
 		
 		// Bookkeeping.
 		countEval += Double(fitnesses.count)

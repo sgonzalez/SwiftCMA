@@ -1,8 +1,10 @@
 # SwiftCMA
-## *by Santiago Gonzalez*
+## by Santiago Gonzalez
 ### ***A pure-Swift implementation of Covariance Matrix Adaptation Evolutionary Strategy (CMA-ES).***
 
 **SwiftCMA** is a *de novo* implementation of [Covariance Matrix Adaptation Evolutionary Strategy](https://en.wikipedia.org/wiki/CMA-ES) (CMA-ES). CMA-ES is a wonderful population-based optimization technique that can optimize non-convex, non-smooth, non-differentiable functions. While CMA-ES is conceptually simple, it's rather complex mathematically. **SwiftCMA** is written in pure Swift, and makes proper use of functional programming and Swift's type system. This project is provided under the MIT License (see the `LICENSE` file for more info).
+
+**SwiftCMA** can be added to your project as a dependency with the Swift Package Manager.
 
 ## Functionality
 
@@ -92,9 +94,8 @@ The only external dependency is `LAPACK` (for eigendecomposition). On macOS, thi
 
 ## Future Work
 
-* Integrate with Swift Package Manager.
 * Separate linear algebra API into its own library.
 * Faster.
 * Support fun variants of CMA-ES.
 * More tests (unit, integration, performance).
-* More engaging test app that visualizes the CMA-ES process.
+* An engaging test app that visualizes the CMA-ES process.

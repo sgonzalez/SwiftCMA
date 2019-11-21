@@ -1,17 +1,17 @@
 //
-//  AppDelegate.swift
-//  SwiftCMAES
+//  CMAESIntegrationTests.swift
+//  SwiftCMAESTests
 //
 //  Created by Santiago Gonzalez on 4/13/19.
 //  Copyright © 2019 Santiago Gonzalez. All rights reserved.
 //
 
-import Cocoa
+import XCTest
+import SwiftCMA
 
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+final class CMAESIntegrationTests: XCTestCase {
 
-	func applicationDidFinishLaunching(_ aNotification: Notification) {
+	func testCMAES() {
 		
 		// Solution variables.
 		let startRangeBound: Double = 5.0
@@ -54,5 +54,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 	}
 
+	static var allTests = [
+        ("testCMAES", testCMAES),
+    ]
+	
 }
 

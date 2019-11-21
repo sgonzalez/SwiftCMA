@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import SwiftCMAES
+import SwiftCMA
 
 class LinearAlgebraTests: XCTestCase {
 	
@@ -74,5 +74,18 @@ class LinearAlgebraTests: XCTestCase {
 		XCTAssertEqual(matrix.transposed().transposed(), matrix)
 		XCTAssertEqual(Matrix.identity(dim: 6).transposed(), Matrix.identity(dim: 6))
 	}
+	
+	static var allTests = [
+		("testProperties", testProperties),
+		("testTransposition", testTransposition),
+		("testVectorArithmetic", testVectorArithmetic),
+		("testVectorArithmeticInPlace", testVectorArithmeticInPlace),
+		("testInitMatrixFromList", testInitMatrixFromList),
+		("testMatrixArithmeticInPlace", testMatrixArithmeticInPlace),
+		("testAddOuterProduct", testAddOuterProduct),
+		("testMatrixDotWithVector", testMatrixDotWithVector),
+		("testMatrixDotWithVectorTransposed", testMatrixDotWithVectorTransposed),
+        ("testTransposition", testTransposition),
+    ]
 	
 }

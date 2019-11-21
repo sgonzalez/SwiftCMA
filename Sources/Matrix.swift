@@ -9,11 +9,11 @@
 import Foundation
 
 /// Matrices are row-major, 2D arrays of floating-point numbers.
-typealias Matrix = [Vector]
+public typealias Matrix = [Vector]
 
 extension Matrix {
 	/// Returns a new identity matrix of the specified size.
-	static func identity(dim: Int) -> Matrix {
+	public static func identity(dim: Int) -> Matrix {
 		var mat = Matrix(repeating: Vector.zeros(dim), count: dim)
 		for i in 0..<mat.count {
 			mat[i][i] = 1.0
@@ -22,7 +22,7 @@ extension Matrix {
 	}
 	
 	/// Creates a new, square matrix from a 1D, row-major list.
-	init(fromList list: Vector, dimension: Int) {
+	public init(fromList list: Vector, dimension: Int) {
 		self = (0..<dimension).map { i in
 			return (0..<dimension).map { j in
 				return list[i*dimension + j]
@@ -31,7 +31,7 @@ extension Matrix {
 	}
 	
 	/// Returns the dot product of the matrix with the specified vector.
-	func dot(vec: Vector, transpose: Bool = false) -> Vector {
+	public func dot(vec: Vector, transpose: Bool = false) -> Vector {
 		var out = Vector.zeros(transpose ? self[0].count : self.count)
 		for i in 0..<out.count {
 			let sumVec = Vector.zeros(vec.count)
@@ -43,7 +43,7 @@ extension Matrix {
 	}
 	
 	/// Performs element-wise multiplication.
-	mutating func multiply(_ scalar: Double) {
+	public mutating func multiply(_ scalar: Double) {
 		for i in 0..<count {
 			self[i].multiply(scalar)
 		}
@@ -51,7 +51,7 @@ extension Matrix {
 	
 	/// Adds the outer product of the specified vector with itself to the
 	/// matrix, with an optional multiplier.
-	mutating func addOuterProduct(vec: Vector, multiplier: Double = 1.0) {
+	public mutating func addOuterProduct(vec: Vector, multiplier: Double = 1.0) {
 		for i in 0..<count {
 			for j in 0..<self[0].count {
 				self[i][j] += multiplier * vec[i] * vec[j]
@@ -60,13 +60,13 @@ extension Matrix {
 	}
 }
 
-func + (left: Matrix, right: Matrix) -> Matrix {
+public func + (left: Matrix, right: Matrix) -> Matrix {
 	return left.indexedMap { $1 + right[$0] }
 }
 
 extension Collection where Self.Iterator.Element: RandomAccessCollection {
 	/// Transposes 2D arrays (i.e., matrices).
-	func transposed() -> [[Self.Iterator.Element.Iterator.Element]] {
+	public func transposed() -> [[Self.Iterator.Element.Iterator.Element]] {
 		guard let firstRow = self.first else { return [] }
 		return firstRow.indices.map { index in
 			self.map{ $0[index] }
