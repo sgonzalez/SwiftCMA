@@ -1,6 +1,6 @@
 # SwiftCMA
 ## by Santiago Gonzalez
-### ***A pure-Swift implementation of Covariance Matrix Adaptation Evolutionary Strategy (CMA-ES).***
+### ***A pure-Swift implementation of the Covariance Matrix Adaptation Evolutionary Strategy (CMA-ES) algorithm.***
 
 **SwiftCMA** is a *de novo* implementation of [Covariance Matrix Adaptation Evolutionary Strategy](https://en.wikipedia.org/wiki/CMA-ES) (CMA-ES). CMA-ES is a wonderful population-based optimization technique that can optimize non-convex, non-smooth, non-differentiable functions. While CMA-ES is conceptually simple, it's rather complex mathematically. **SwiftCMA** is written in pure Swift, and makes proper use of functional programming and Swift's type system. This project is provided under the MIT License (see the `LICENSE` file for more info).
 
