@@ -91,6 +91,17 @@ struct SphereObjectiveEvaluator: ObjectiveEvaluator {
 
 The only external dependency is `LAPACK` (for eigendecomposition). On macOS, this is fulfilled by the built-in `Accelerate` framework. On Linux, you should use the [CLapacke-Linux](https://github.com/indisoluble/CLapacke-Linux) Swift wrapper around `LAPACK`, which is very easy to install using APT.
 
+## Citing
+
+If you use **SwiftCMA** in a publication, you can use the following BibTeX entry to cite this project:
+
+```
+@misc{swiftcma,
+	Title = {SwiftCMA},
+	Author = {Santiago Gonzalez},
+	howpublished = {\url{https://github.com/sgonzalez/SwiftCMA}}
+}
+```
 
 ## Future Work
 
