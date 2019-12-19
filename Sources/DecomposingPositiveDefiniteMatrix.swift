@@ -9,7 +9,7 @@
 import Foundation
 
 /// A symmetric, positive-definite matrix that maintains its own eigendecomposition.
-class DecomposingPositiveDefiniteMatrix {
+class DecomposingPositiveDefiniteMatrix: Codable {
 	
 	/// The backing matrix.
 	var matrix: Matrix

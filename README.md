@@ -27,9 +27,9 @@ Features:
 * Eigendecomposition of matrices to get eigenvalues and an eigenbasis
 * Covariance matrix wrapper
 
-### Unit Tests
+### Tests
 
-Testing is great, so we have some unit tests as part of the Xcode project! More tests would be great, right now the tests just cover the linear algebra APIs.
+Testing is great, so we have some unit and integration tests as part of the package! More tests would be great, right now the tests mostly just cover the linear algebra APIs.
 
 ### Built-in Objective Functions
 
@@ -39,9 +39,18 @@ Testing is great, so we have some unit tests as part of the Xcode project! More 
 * Rastrigin function: `RastriginObjectiveEvaluator`
 * Ackley function: `AckleyObjectiveEvaluator`
 
-### Test App
+### Checkpointing
 
-**SwiftCMA** comes with an Xcode project that builds a test app bundle. All code specific to this is in the `App/` directory. A quick note: the project builds an app bundle, rather than a basic executable, since it needs to link to `Accelerate.framework`. Tests live in the `Tests/` directory.
+Every state object in **SwiftCMA** conforms to the Swift `Codable` protocol, allowing serialization and deserialization. The `CMAES` class provides a lovely abstraction for this that allows writing and reading checkpoints in one line:
+
+```swift
+let cmaes: CMAES = ...
+let checkpointFile: URL = ...
+// Create a checkpoint.
+try cmaes.save(checkpoint: checkpointFile)
+// Read the checkpoint.
+let reconstituted = try CMAES.from(checkpoint: checkpointFile)
+```
 
 ## Usage
 

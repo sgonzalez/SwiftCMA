@@ -9,7 +9,13 @@
 import Foundation
 
 /// Embodies Covariance Matrix Adaptation Evolutionary Strategy (CMA-ES)
-public class CMAES {
+public class CMAES: Codable {
+	
+	/// A candidate that has a calculated objective value.
+	public struct EvaluatedSolution: Codable {
+		public let solution: Vector
+		public let value: Double
+	}
 	
 	/// Returns a good population size for the specified number of dimensions.
 	public static func populationSize(forDimensions n: Int) -> Int {
@@ -43,7 +49,7 @@ public class CMAES {
 	/// Distribution mean.
 	private(set) public var xmean: Vector
 	/// The best.
-	private(set) public var bestSolution: (Vector, Double)?
+	private(set) public var bestSolution: EvaluatedSolution?
 	/// Evolution path for C; anisotropic evolution path.
 	var pc: Vector
 	/// Evolution path for sigma; isotropic evolution path.
@@ -58,6 +64,8 @@ public class CMAES {
 	var countEval: Double
 	/// Gap to postpone eigendecomposition to achieve O(N**2) per eval.
 	let lazyGapEvals: Double
+	
+	// MARK: - Initialization
 	
 	/// Initializes a new CMA-ES run.
 	public init(startSolution: Vector, populationSize: Int, stepSigma: Double) {
@@ -97,6 +105,8 @@ public class CMAES {
 		lazyGapEvals = 0.5 * Double(n) * Double(populationSize) * (1.0 / (c1 + cmu)) / (Double(n) * Double(n)) // 0.5 is chosen such that eig takes 2 times the time of tell in >= 20-D		
 	}
 	
+	// MARK: - CMA-ES Core
+	
 	public typealias SolutionCallback = (Vector, Double) -> ()
 	
 	/// A convenient wrapper for `epoch` that takes an objective evaluator.
@@ -129,7 +139,7 @@ public class CMAES {
 		// Sort by fitness.
 		candidateSolutions = zip(candidateSolutions, fitnesses).sorted(by: { $1.1 > $0.1 }).map { $0.0 }
 		fitnesses = fitnesses.sorted(by: { $1 > $0 })
-		bestSolution = (candidateSolutions.first!, fitnesses.first!)
+		bestSolution = EvaluatedSolution(solution: candidateSolutions.first!, value: fitnesses.first!)
 		
 		// Recombination.
 		let xold = xmean
@@ -161,5 +171,19 @@ public class CMAES {
 		let sumSquarePs = ps.squared.sum
 		stepSigma *= exp(min(1.0, cn * (sumSquarePs / Double(n) - 1.0) / 2.0))
 		
+	}
+	
+	// MARK: - Checkpointing
+	
+	/// Initializes a CMA-ES object from the checkpoint at the given file URL.
+	static public func from(checkpoint: URL) throws -> CMAES {
+		let jsonData = try Data(contentsOf: checkpoint)
+		return try JSONDecoder().decode(CMAES.self, from: jsonData)
+	}
+	
+	/// Creates a new checkpoint and saves it to the specified file.
+	public func save(checkpoint: URL) throws {
+		let jsonData = try JSONEncoder().encode(self)
+		try jsonData.write(to: checkpoint)
 	}
 }
