@@ -133,7 +133,7 @@ public class CMAES: Codable {
 	// MARK: - CMA-ES Core
 	
 	/// Starts a new epoch and returns a set of candidates.
-	func startEpoch() -> [Vector] {
+	public func startEpoch() -> [Vector] {
 		// Generate offspring.
 		C.updateEigensystem(currentEval: countEval, lazyGapEvals: lazyGapEvals)
 		var candidateSolutions = [Vector]()
@@ -146,7 +146,7 @@ public class CMAES: Codable {
 	}
 	
 	/// Finishes the epoch using the provided set of fitness values.
-	func finishEpoch(candidateFitnesses: [(Vector, Double)]) {
+	public func finishEpoch(candidateFitnesses: [(Vector, Double)]) {
 		var candidateSolutions = candidateFitnesses.map { $0.0 }
 		var fitnesses = candidateFitnesses.map { $0.1 }
 		
