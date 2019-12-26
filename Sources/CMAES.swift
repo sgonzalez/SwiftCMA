@@ -105,7 +105,7 @@ public class CMAES: Codable {
 		lazyGapEvals = 0.5 * Double(n) * Double(populationSize) * (1.0 / (c1 + cmu)) / (Double(n) * Double(n)) // 0.5 is chosen such that eig takes 2 times the time of tell in >= 20-D		
 	}
 	
-	// MARK: - CMA-ES Core
+	// MARK: - Epoch Wrappers
 	
 	public typealias SolutionCallback = (Vector, Double) -> ()
 	
@@ -120,6 +120,20 @@ public class CMAES: Codable {
 	
 	/// Performs an evolutionary epoch.
 	public func epoch(valuesForCandidates: ([Vector], @escaping SolutionCallback) -> ([Double]), solutionCallback: @escaping SolutionCallback) {
+		
+		let candidateSolutions = startEpoch()
+		
+		// Evaluate fitnesses.
+		let fitnesses = valuesForCandidates(candidateSolutions, solutionCallback)
+		
+		finishEpoch(candidateFitnesses: Array(zip(candidateSolutions, fitnesses)))
+		
+	}
+	
+	// MARK: - CMA-ES Core
+	
+	/// Starts a new epoch and returns a set of candidates.
+	func startEpoch() -> [Vector] {
 		// Generate offspring.
 		C.updateEigensystem(currentEval: countEval, lazyGapEvals: lazyGapEvals)
 		var candidateSolutions = [Vector]()
@@ -128,16 +142,19 @@ public class CMAES: Codable {
 			let y = C.eigenbasis.dot(vec: z)
 			candidateSolutions.append(xmean + y)
 		}
-		
-		// Evaluate fitnesses.
-		var fitnesses = valuesForCandidates(candidateSolutions, solutionCallback)
-		assert(fitnesses.count == candidateSolutions.count)
+		return candidateSolutions
+	}
+	
+	/// Finishes the epoch using the provided set of fitness values.
+	func finishEpoch(candidateFitnesses: [(Vector, Double)]) {
+		var candidateSolutions = candidateFitnesses.map { $0.0 }
+		var fitnesses = candidateFitnesses.map { $0.1 }
 		
 		// Bookkeeping.
 		countEval += Double(fitnesses.count)
 		
 		// Sort by fitness.
-		candidateSolutions = zip(candidateSolutions, fitnesses).sorted(by: { $1.1 > $0.1 }).map { $0.0 }
+		candidateSolutions = candidateFitnesses.sorted(by: { $1.1 > $0.1 }).map { $0.0 }
 		fitnesses = fitnesses.sorted(by: { $1 > $0 })
 		bestSolution = EvaluatedSolution(solution: candidateSolutions.first!, value: fitnesses.first!)
 		
@@ -170,7 +187,6 @@ public class CMAES: Codable {
 		let cn = cs / damps
 		let sumSquarePs = ps.squared.sum
 		stepSigma *= exp(min(1.0, cn * (sumSquarePs / Double(n) - 1.0) / 2.0))
-		
 	}
 	
 	// MARK: - Checkpointing
