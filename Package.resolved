@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CLapacke-Linux",
+        "repositoryURL": "https://github.com/indisoluble/CLapacke-Linux",
+        "state": {
+          "branch": null,
+          "revision": "9c6a66b69f3e598c8594229daadc57717d9b9c50",
+          "version": "1.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

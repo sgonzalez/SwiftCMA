@@ -98,7 +98,7 @@ struct SphereObjectiveEvaluator: ObjectiveEvaluator {
 
 ### Dependencies
 
-The only external dependency is `LAPACK` (for eigendecomposition). On macOS, this is fulfilled by the built-in `Accelerate` framework. On Linux, you should use the [CLapacke-Linux](https://github.com/indisoluble/CLapacke-Linux) Swift wrapper around `LAPACK`, which is very easy to install using APT.
+The only external dependency is `LAPACK` (for eigendecomposition). On macOS, this is fulfilled by the built-in `Accelerate` framework. On Linux, you should use the [CLapacke-Linux](https://github.com/indisoluble/CLapacke-Linux) Swift wrapper around `LAPACK`. If your Linux installation does not have `LAPACK` you can install it with this command: `sudo apt-get install liblapacke-dev`
 
 ## Citing
 

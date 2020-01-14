@@ -73,9 +73,8 @@ func eigenDecompose(_ mat: Matrix) -> (Vector, Matrix) {
 	#elseif os(Linux)
 	
 	let aPointer =  UnsafeMutablePointer(mutating: a)
-	let aOpaquePointer = OpaquePointer(aPointer)
 	
-	info = LAPACKE_dsyev(LAPACK_COL_MAJOR, jobz, uplo, n, aOpaquePointer, &w)
+	info = LAPACKE_dsyev(LAPACK_COL_MAJOR, jobz, uplo, n, aPointer, lda, &w)
 	
 	#endif
 	
