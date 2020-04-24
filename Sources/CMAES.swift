@@ -10,6 +10,49 @@ import Foundation
 
 /// Embodies Covariance Matrix Adaptation Evolutionary Strategy (CMA-ES)
 public class CMAES: Codable {
+
+	/// A search space's configuration.
+	public struct SearchSpaceConfiguration: Codable {
+		/// Hard bounds. Must have`n` elements.
+		public let bounds: [ClosedRange<Double>?]
+		/// Scaling factors that are applied prior to get to the CMA-ES representation. Must have`n` elements.
+		public let scalingFactors: [Double]
+		/// How bounds are handled.
+		public let bchm: BoundConstraintHandlingMethod
+		
+		/// Encodes a vector from the search space into CMA-ES space.
+		public func cmaesEncode(candidate: Vector) -> Vector {
+			precondition(scalingFactors.count == candidate.count)
+			return zip(candidate, scalingFactors).map { $0.0 * $0.1 }
+		}
+		
+		/// Decodes a vector from CMA-ES space to the original search space.
+		public func cmaesDecode(candidate: Vector) -> Vector {
+			precondition(scalingFactors.count == candidate.count)
+			return zip(candidate, scalingFactors).map { $0.0 / $0.1 }
+		}
+		
+		public init(bounds: [ClosedRange<Double>?], scalingFactors: [Double], bchm: BoundConstraintHandlingMethod) {
+			self.bounds = bounds
+			self.scalingFactors = scalingFactors
+			self.bchm = bchm
+		}
+		
+		/// An identity configuration.
+		public static func identity(n: Int) -> SearchSpaceConfiguration{
+			return SearchSpaceConfiguration(
+				bounds: Array(repeating: nil, count: n),
+				scalingFactors: Array(repeating: 1.0, count: n),
+				bchm: .darwinianReflection // the BCHM doesn't really matter since we don't have any bounds.
+			)
+		}
+	}
+	
+	/// The different flavors of bound constraint handling methods that are available.
+	/// - Note: For information on these methods, reference "Handling bound constraints in CMA-ES: An experimental study" by Rafał Biedrzycki.
+	public enum BoundConstraintHandlingMethod: String, Codable {
+		case darwinianReflection
+	}
 	
 	/// A candidate that has a calculated objective value.
 	public struct EvaluatedSolution: Codable {
@@ -20,6 +63,18 @@ public class CMAES: Codable {
 	/// Returns a good population size for the specified number of dimensions.
 	public static func populationSize(forDimensions n: Int) -> Int {
 		return Int(4+floor(3*log(Double(n))))
+	}
+	
+	// MARK: - Properties
+	
+	/// The search space's configuration.
+	public var searchSpaceConfiguration: SearchSpaceConfiguration? {
+		didSet {
+			if let config = searchSpaceConfiguration {
+				assert(config.bounds.count == n)
+				assert(config.scalingFactors.count == n)
+			}
+		}
 	}
 	
 	/// Dimensionality.
@@ -68,11 +123,17 @@ public class CMAES: Codable {
 	// MARK: - Initialization
 	
 	/// Initializes a new CMA-ES run.
-	public init(startSolution: Vector, populationSize: Int, stepSigma: Double) {
+	public init(startSolution: Vector, populationSize: Int, stepSigma: Double, searchSpaceConfiguration: SearchSpaceConfiguration? = nil) {
 		n = startSolution.count
 		xmean = startSolution
 		self.populationSize = populationSize
 		self.stepSigma = stepSigma
+		self.searchSpaceConfiguration = searchSpaceConfiguration
+		
+		// Encode the start solution if necessary.
+		if let config = searchSpaceConfiguration {
+			xmean = config.cmaesEncode(candidate: xmean)
+		}
 		
 		// Selection parameter initialization.
 		mu = populationSize / 2
@@ -123,8 +184,31 @@ public class CMAES: Codable {
 		
 		let candidateSolutions = startEpoch()
 		
+		// Get candidate solutions for evaluations.
+		let candidateSolutionsForEvaluation = searchSpaceConfiguration.flatMap { config in
+			switch config.bchm {
+				
+			case .darwinianReflection:
+				return candidateSolutions.map { candidate in
+					return zip(candidate, config.bounds).map { elementBoundsPair in
+						let element = elementBoundsPair.0
+						return elementBoundsPair.1.flatMap { range in
+							if element < range.lowerBound {
+								return 2 * range.lowerBound - element
+							} else if element > range.upperBound {
+								return 2 * range.upperBound - element
+							} else {
+								return element
+							}
+						} ?? element
+					}
+				}
+				
+			}
+		} ?? candidateSolutions
+		
 		// Evaluate fitnesses.
-		let fitnesses = valuesForCandidates(candidateSolutions, solutionCallback)
+		let fitnesses = valuesForCandidates(candidateSolutionsForEvaluation, solutionCallback)
 		
 		finishEpoch(candidateFitnesses: Array(zip(candidateSolutions, fitnesses)))
 		
@@ -132,7 +216,7 @@ public class CMAES: Codable {
 	
 	// MARK: - CMA-ES Core
 	
-	/// Starts a new epoch and returns a set of candidates.
+	/// Starts a new epoch and returns a decoded set of candidates.
 	public func startEpoch() -> [Vector] {
 		// Generate offspring.
 		C.updateEigensystem(currentEval: countEval, lazyGapEvals: lazyGapEvals)
@@ -142,12 +226,19 @@ public class CMAES: Codable {
 			let y = C.eigenbasis.dot(vec: z)
 			candidateSolutions.append(xmean + y)
 		}
-		return candidateSolutions
+		// Decode.
+		if let config = searchSpaceConfiguration {
+			return candidateSolutions.map { config.cmaesDecode(candidate: $0) }
+		} else {
+			return candidateSolutions
+		}
 	}
 	
-	/// Finishes the epoch using the provided set of fitness values.
+	/// Finishes the epoch using the provided set of fitness values. Inputs are not encoded.
 	public func finishEpoch(candidateFitnesses: [(Vector, Double)]) {
-		var candidateSolutions = candidateFitnesses.map { $0.0 }
+		var candidateSolutions = candidateFitnesses.map { candidateFitness in
+			return searchSpaceConfiguration.flatMap { $0.cmaesEncode(candidate: candidateFitness.0) } ?? candidateFitness.0
+		}
 		var fitnesses = candidateFitnesses.map { $0.1 }
 		
 		// Bookkeeping.
